@@ -8,7 +8,6 @@ import Login from "./Authentication/Login";
 import Signup from "./Authentication/Signup";
 import HomePage from "./Home";
 import MeetingsPage from "./Meetings";
-import Summa from "./summa";
 import VideoCallUI from "./VideoCallUI";
 import LobbyScreen from "./screens/Lobby";
 import RoomPage from "./screens/Room";
