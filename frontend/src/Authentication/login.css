@@ -1,0 +1,132 @@
+.login-page{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login{
+    height: 90vh;
+    margin: auto;
+    width: 70vw;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: var(--primary-color);
+    border-radius: 20px;
+}
+
+
+.right-login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    color: white;
+}
+
+.left-login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    color: white;
+    height: 100%;
+    }
+
+
+
+.form-element input{
+    all: unset;
+    height: 30px;
+    width: 95%;
+    padding: 10px;
+    border-radius: 9px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 0.5px solid rgba(217, 217, 217,0.2);
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.forgot-element input::selection{
+    /* border: 0.5px solid white; */
+    background-color: black;
+}
+
+.form-element input.error{
+    border-color: red;
+    background-color: #ffe6e6;
+}
+
+/* .form-element label{
+    margin: 5px;
+} */
+
+.remember-box{
+    display: flex;
+    justify-content: space-between;
+    padding:10px ;
+    width: 100%;
+
+}
+
+
+.submit-button{
+    height: 40px;
+    width: 100%;
+    border: none important;
+    background-color: var(--accent-color);
+    border-radius: 9px;
+    font-size: medium;
+    font-weight: bold;
+    color: var(--primary-color);
+    border: none;
+}
+
+.google-button{
+    height: 40px;
+        width: 100%;
+        border: none important;
+        background-color: white;
+        color: var(--primary-color);
+        border-radius: 9px;
+        font-size: medium;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        border: none;
+}
+
+.login-form{
+    height: 90%;
+    width: 90%;
+    padding: 1rem;
+    
+}
+
+.forgot{
+    text-align: right;
+    margin-top: 2px;
+}
+
+.forgot a{
+    color: var(--accent-color);
+}
+
+.signup-button{
+    text-align: center;
+}
+
+.signup-button a{
+    color: var(--accent-color);
+}
+
+
+
+.right-login img{
+    height: 80%;
+    width: 80%;
+}

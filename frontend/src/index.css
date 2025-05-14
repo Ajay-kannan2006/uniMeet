@@ -1,0 +1,31 @@
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+@import "tailwindcss";
+:root {
+  --primary-color: #0A2647;
+  --secondary-color: #FFFFFF;
+  --accent-color: #FFD700;
+  --neutral-color: #F0F0F0;
+  --font-size: 16px;
+  --notification-color: #e6f7ff;
+    /* Light sky blue for positive/info messages */
+}
+
+
+*{
+  padding: 0;
+  margin: 0;
+}
+
+button{
+  cursor: pointer;
+}
+
+body{
+  height: 100vh;
+  width: 100vh;
+  font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
