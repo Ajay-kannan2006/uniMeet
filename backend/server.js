@@ -8,10 +8,10 @@ const { spawn } = require("child_process");
 const http = require('http');
 
 const app = express();
-// const server = http.createServer(app);
+const server = http.createServer(app);
 
 
-const io = new Server(8000, {
+const io = new Server(server, {
   cors: {
     origin: "*",
     methods:["GET","POST"]
@@ -116,6 +116,6 @@ mongoose.connect(process.env.MONGO_URL)
 
 // Start server
 const PORT = process.env.PORT || 8080;
-// server.listen(PORT, () => {
-//   console.log(`Server running on http://localhost:${PORT}`);
-// });
+server.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
