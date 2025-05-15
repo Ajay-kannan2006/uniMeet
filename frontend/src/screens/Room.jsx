@@ -7,10 +7,10 @@ const RoomPage = () => {
   const [remoteSocketId, setRemoteSocketId] = useState(null);
   const [myStream, setMyStream] = useState();
   const [remoteStream, setRemoteStream] = useState();
-  console.log("remoteStream", remoteStream);
-  console.log("remoteSocketId", remoteSocketId);
-  console.log("myStream", myStream);
-  console.log("remoteStream", remoteStream);
+  // console.log("remoteStream", remoteStream);
+  // console.log("remoteSocketId", remoteSocketId);
+  // console.log("myStream", myStream);
+  // console.log("remoteStream", remoteStream);
 
   // const [peer, setPeer] = useState(null);
 

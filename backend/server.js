@@ -13,13 +13,27 @@ const app = express();
 
 const io = new Server(8000, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: "*",
     methods:["GET","POST"]
   },
 });
 
+if (io) {
+  console.log("Sockets Initialized ")
+}
+
 const emailToSocketIdMap = new Map();
 const socketIdToEmailMap = new Map();
+
+const getUsersInRoom = async (roomName) => {
+  const sockets = await io.in(roomName).fetchSockets();
+  const users = sockets.map((socket) => ({
+    socketId: socket.id,
+    email: socketIdToEmailMap.get(socket.id) || "Unknown",
+  }));
+  return users;
+};
+
 
 io.on("connection", socket => {
   console.log('socket connected', socket.id);
@@ -30,6 +44,10 @@ io.on("connection", socket => {
     socket.join(room);  
     socket.to(room).emit('user:joined', { email, id: socket.id });
     socket.emit('room:join', data);
+
+    console.log(emailToSocketIdMap);
+    console.log(socketIdToEmailMap);
+    
 
     socket.on('user:call', ({ to, offer }) => {
       console.log("User Accepted");
@@ -62,6 +80,12 @@ io.on("connection", socket => {
         from: socket.id, ans
       })
     })
+
+    socket.on("room:getUsers", async ({ room }) => {
+      const users = await getUsersInRoom(room);
+      socket.emit("room:users", users);
+    });
+
   });
   
 })
@@ -76,7 +100,7 @@ io.on("connection", socket => {
 
 // CORS + other Express setup
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: '*',
   credentials: true,
 }));
 app.use(cookieParser());
