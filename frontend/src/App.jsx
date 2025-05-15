@@ -77,7 +77,7 @@ function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path="/meetings" element={<MeetingsPage />} />
         {/* <Route path="/room/:roomId" element={<VideoCallUI />} /> */}
-        <Route path="/try" element={<Summa />} />
+        {/* <Route path="/try" element={<Summa />} /> */}
         <Route path="/lobby" element={<LobbyScreen />} />
         <Route path="/room/:roomId" element={<RoomPage />} />
       </Routes>

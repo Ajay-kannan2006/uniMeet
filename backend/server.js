@@ -5,12 +5,13 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const { Server } = require('socket.io');
 const { spawn } = require("child_process");
+const http = require('http');
 
 const app = express();
-const server = http.createServer(app);
+// const server = http.createServer(app);
 
 
-const io = new Server(server, {
+const io = new Server(8000, {
   cors: {
     origin: "http://localhost:5173",
     methods:["GET","POST"]
