@@ -1,6 +1,6 @@
 const  User = require("../models/user");
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 require('dotenv').config();
 
 const maxAge = 7 * 24 * 60 * 60;
