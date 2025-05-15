@@ -2,8 +2,31 @@
 class PeerService {
   constructor() {
     this.peer = new RTCPeerConnection({
-      // iceServers:iceServers,
-      // iceTransportPolicy: "all",
+      iceServers: [
+        {
+          urls: "stun:stun.relay.metered.ca:80",
+        },
+        {
+          urls: "turn:global.relay.metered.ca:80",
+          username: "d655d0a142700c7cb7ea4cff",
+          credential: "lanQJ17MFDAyl/DS",
+        },
+        {
+          urls: "turn:global.relay.metered.ca:80?transport=tcp",
+          username: "d655d0a142700c7cb7ea4cff",
+          credential: "lanQJ17MFDAyl/DS",
+        },
+        {
+          urls: "turn:global.relay.metered.ca:443",
+          username: "d655d0a142700c7cb7ea4cff",
+          credential: "lanQJ17MFDAyl/DS",
+        },
+        {
+          urls: "turns:global.relay.metered.ca:443?transport=tcp",
+          username: "d655d0a142700c7cb7ea4cff",
+          credential: "lanQJ17MFDAyl/DS",
+        },
+    ],
     });
   }
 
