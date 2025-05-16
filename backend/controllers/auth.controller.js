@@ -61,7 +61,10 @@ console.log(1);
         console.log(1);
         res.cookie('jwt', token, {
             httpOnly: true,
-            maxAge:maxAge,
+            maxAge: maxAge,
+            secure: true, // Only send cookies over HTTPS
+    sameSite: 'None',
+            // maxAge: 1000 * 60 * 60 * 24,
         });
 console.log(1);
         return res.status(201).json({ message: 'User Registered Successfully'});
@@ -101,6 +104,9 @@ const login = async (req,res) => {
         res.cookie('jwt', token, {
             httpOnly:true,
             maxAge: maxAge,
+            secure: true, // Only send cookies over HTTPS
+    sameSite: 'None',
+            // maxAge: 1000 * 60 * 60 * 24,
         });
 
         return res.status(200).json({ message: "User Logged In Successfully" });
