@@ -30,7 +30,7 @@ const MeetingsPage = () => {
   useEffect(() => {
     const getEmail = async () => {
       const res = await axios.get(
-        "https://unimeet-8ox2.onrender.comapi/auth/get-email",
+        "https://unimeet-8ox2.onrender.com/api/auth/get-email",
         {
           withCredentials: true,
         }
