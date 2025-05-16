@@ -35,7 +35,7 @@ const Signup = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/auth/signup",
+        "https://unimeet-8ox2.onrender.com/api/auth/signup",
         formData,
         {
           withCredentials: true,
@@ -54,7 +54,7 @@ const Signup = () => {
     const checkUser = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/auth/check-user",
+          "https://unimeet-8ox2.onrender.com/api/auth/check-user",
           {
             withCredentials: true,
           }

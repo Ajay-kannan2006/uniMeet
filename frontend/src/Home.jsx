@@ -59,19 +59,6 @@ const HomePage = () => {
             everyone.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 mt-6">
-            {/* <button
-              onClick={() => navigate("/meetings")}
-              className="bg-[var(--primary-color)] hover:bg-[var(--primary-color-dark)] text-white py-4 px-8 rounded-xl text-lg font-semibold hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-3"
-            >
-              <Zap size={20} className="flex-shrink-0" />
-              <span>Start Meeting</span>
-            </button>
-            <button
-              onClick={() => navigate("/meetings?tab=join")}
-              className="border-2 border-[var(--primary-color)] text-[var(--primary-color)] py-4 px-8 rounded-xl text-lg font-semibold hover:bg-gray-50/50 transition-all duration-300 flex items-center justify-center"
-            >
-              Join Meeting */}
-            {/* </button> */}
           </div>
         </div>
         <div className="lg:w-1/2 mt-10 lg:mt-0">
@@ -131,44 +118,6 @@ const HomePage = () => {
         <br />
       </section>
       <br />
-
-      {/* Testimonials Section */}
-      {/* <section className="w-full bg-gray-50 py-20 md:py-28">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Trusted by Teams Worldwide
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Join thousands of satisfied users who transformed their
-              communication
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((item) => (
-              <div
-                key={item}
-                className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100"
-              >
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 rounded-full bg-gray-200 mr-4"></div>
-                  <div>
-                    <h4 className="font-medium text-gray-900">Sarah Johnson</h4>
-                    <p className="text-sm text-gray-500">Marketing Director</p>
-                  </div>
-                </div>
-                <p className="text-gray-600 italic">
-                  "UniMeet has revolutionized our remote meetings. The video
-                  quality is exceptional and the interface is so intuitive."
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section> */}
-
-      {/* CTA Section */}
       <section className="w-[100vw] flex justify-center bg-gradient-to-r from-[var(--primary-color)] to-blue-500 py-24 md:py-32" style={{padding:"20px"}}>
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
