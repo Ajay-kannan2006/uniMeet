@@ -2,47 +2,88 @@ import { Mic } from "lucide-react";
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-const Navbar = () => {
-  const [position, setPosition] = useState({
-    left: 0,
-    width: 120,
-    opacity: 1,
-  });
-  const [selectedTab, setSelectedTab] = useState(1);
+const Navbar = ({ tab }) => {
+  // const [selectedTab, setSelectedTab] = useState(1);
+  const navigate = useNavigate();
   return (
     <div className="flex w-[700px] justify-between">
       <ul
         className="relative w-[555px] rounded-full flex justify-evenly items-center bg-[var(--primary-color)]"
         style={{ padding: "10px" }}
       >
-        <Tab
-          setPosition={setPosition}
-          tab={1}
-          selectedTab={selectedTab}
-          setSelectedTab={setSelectedTab}
-          nav="home"
+        <li
+          className="relative z-10  block cursor-pointer font-medium text-[25px] text-white hover:cursor-pointer "
+          style={{
+            padding: "5px",
+            borderRadius: "15px",
+            color: tab == "home" ? "var(--primary-color)" : "white",
+            backgroundColor: tab == "home" ? "white" : "var(--primary-color)",
+          }}
+          // ref={ref}
+          onClick={() => {
+            // if (!ref.current) return;
+            // const { width, left } = ref.current.getBoundingClientRect();
+            // setSelectedTab(tab);
+            // setPosition({
+            //   width: width + 20,
+            //   opacity: 1,
+            //   left: ref.current.offsetLeft - 10,
+            // });
+            navigate("/home");
+          }}
         >
-          HOME
-        </Tab>
-        <Tab
-          setPosition={setPosition}
-          tab={2}
-          selectedTab={selectedTab}
-          setSelectedTab={setSelectedTab}
-          nav="meetings"
+          Home
+        </li>
+        <li
+          className="relative z-10  block cursor-pointer font-medium text-[25px] text-white hover:cursor-pointer "
+          style={{
+            padding: "5px",
+            borderRadius: "15px",
+            color: tab == "meetings" ? "var(--primary-color)" : "white",
+            backgroundColor:
+              tab == "meetings" ? "white" : "var(--primary-color)",
+          }}
+          // ref={ref}
+          onClick={() => {
+            // if (!ref.current) return;
+            // const { width, left } = ref.current.getBoundingClientRect();
+            // setSelectedTab(tab);
+            // setPosition({
+            //   width: width + 20,
+            //   opacity: 1,
+            //   left: ref.current.offsetLeft - 10,
+            // });
+            navigate(`/meetings`);
+          }}
         >
-          MEETINGS
-        </Tab>
-        <Tab
-          setPosition={setPosition}
-          tab={3}
-          selectedTab={selectedTab}
-          setSelectedTab={setSelectedTab}
-          nav="support"
+          Meetings
+        </li>
+        <li
+          className="relative z-10  block cursor-pointer font-medium text-[25px] text-white hover:cursor-pointer "
+          style={{
+            padding: "5px",
+            borderRadius: "15px",
+            color: tab == "suuport" ? "var(--primary-color)" : "white",
+            backgroundColor:
+              tab == "support" ? "white" : "var(--primary-color)",
+          }}
+          // ref={ref}
+          onClick={() => {
+            // if (!ref.current) return;
+            // const { width, left } = ref.current.getBoundingClientRect();
+            // setSelectedTab(tab);
+            // setPosition({
+            //   width: width + 20,
+            //   opacity: 1,
+            //   left: ref.current.offsetLeft - 10,
+            // });
+            navigate(`/Support`);
+          }}
         >
-          SUPPORT
-        </Tab>
-        <Cursor position={position} />
+          Support
+        </li>
+
+        {/* <Cursor position={position} /> */}
       </ul>
       <div className=" flex justify-center items-center h-[65px] w-[65px] rounded-full bg-[var(--primary-color)] hover:cursor-pointer">
         <Mic color="white" size={24} />

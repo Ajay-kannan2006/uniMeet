@@ -22,8 +22,8 @@ const Login = () => {
     if (!formData.password.trim()) {
       setError("Password is Required");
       return;
-    } else if (formData.password.length > 6) {
-      setError("Password should be atleadt of leanth 6");
+    } else if (formData.password.length < 6) {
+      setError("Password should be atleast of length 6");
       return;
     }
 

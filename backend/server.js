@@ -100,7 +100,7 @@ io.on("connection", socket => {
 
 // CORS + other Express setup
 app.use(cors({
-  origin: '*',
+  origin: 'https://uni-meet-theta.vercel.app/',
   credentials: true,
 }));
 app.use(cookieParser());

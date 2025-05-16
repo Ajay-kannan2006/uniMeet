@@ -58,7 +58,7 @@ const MeetingsPage = () => {
 
   return (
     <div className="bg-[#f8fafc] w-[100vw] min-h-screen flex flex-col items-center">
-      <Header />
+      {/* <Header /> */}
 
       <main className="w-full max-w-7xl px-6 py-8 flex-1 flex flex-col lg:flex-row gap-8">
         <div className="w-full bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden flex flex-col transition-all duration-300 min-h-[550px]">
@@ -210,7 +210,7 @@ const MeetingsPage = () => {
                 <div
                   key={meeting.id}
                   className=" hover:bg-gray-50 transition-colors"
-                  style={{padding:'5px'}}
+                  style={{ padding: "5px" }}
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex items-start space-x-4">

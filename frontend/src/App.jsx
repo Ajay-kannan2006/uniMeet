@@ -11,6 +11,17 @@ import MeetingsPage from "./Meetings";
 import VideoCallUI from "./VideoCallUI";
 import LobbyScreen from "./screens/Lobby";
 import RoomPage from "./screens/Room";
+import Navbar from "./Components/Navbar";
+import Header from "./Components/Header";
+
+const MainLayout = ({ tab, children }) => {
+  return (
+    <>
+      <Header tab={tab} />
+      <div className="">{children}</div>
+    </>
+  );
+};
 
 function App() {
   const navigate = useNavigate();
@@ -74,10 +85,25 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/meetings" element={<MeetingsPage />} />
+        <Route
+          path="/home"
+          element={
+            <MainLayout tab="home">
+              <HomePage />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/meetings"
+          element={
+            <MainLayout tab="meetings">
+              <MeetingsPage />
+            </MainLayout>
+          }
+        />
         {/* <Route path="/room/:roomId" element={<VideoCallUI />} /> */}
         {/* <Route path="/try" element={<Summa />} /> */}
+        <Route path="/roomy" element={<VideoCallUI />}></Route>
         <Route path="/lobby" element={<LobbyScreen />} />
         <Route path="/room/:roomId" element={<RoomPage />} />
       </Routes>
