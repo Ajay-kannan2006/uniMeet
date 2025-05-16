@@ -9,9 +9,25 @@ function generateToken(id){
     return jwt.sign({ id }, process.env.JWT, { expiresIn: maxAge });
 };
 
+
+const getEmail =async (req,res) => {
+    const token = req.cookies.jwt;
+    console.log("token",token);
+    if (!token) {
+        return res.status(401).json({ error: "No Token" });
+    }
+    const decoded = jwt.verify(token, process.env.JWT);
+    const userId = decoded.id;
+    const email = await User.findById(userId).select('email');
+    console.log('sending email');
+    
+    res.status(200).json({ email });
+    
+}
+
 const checkAlreadyLoggedIn = async (req, res) => {
     const token = req.cookies['jwt'];
-    console.log(req.cookies);
+    console.log("Cookies",req.cookies);
     if (!token) {
         return res.status(401).json({ error: "No token, not Authenticated" });
     }
@@ -119,4 +135,4 @@ const login = async (req,res) => {
     }
 }
 
-module.exports = { signup,checkAlreadyLoggedIn,login };
+module.exports = { signup,checkAlreadyLoggedIn,login ,getEmail};

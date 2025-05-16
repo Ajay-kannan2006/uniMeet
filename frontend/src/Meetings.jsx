@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   Video,
   Plus,
@@ -14,12 +14,59 @@ import {
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import Header from "./Components/Header";
+import { useSocket } from "./context/SocketProvider";
+import axios from "axios";
 
 const MeetingsPage = () => {
   const navigate = useNavigate();
   const [meetingId, setMeetingId] = useState("");
   const [activeTab, setActiveTab] = useState("new");
   const [copied, setCopied] = useState(false);
+  const [email, setEmail] = useState("");
+  const [room, setRoom] = useState("");
+
+  const socket = useSocket();
+  // const navigate = useNavigate();
+  useEffect(() => {
+    const getEmail = async () => {
+      const res = await axios.get("http://localhost:8080/api/auth/get-email", {
+        withCredentials: true,
+      });
+      setEmail(res.data.email);
+      console.log("your email", res.data.email);
+    };
+    getEmail();
+  }, []);
+
+  const handleSubmitForm = useCallback(
+    (e) => {
+      e.preventDefault();
+      if (!email) {
+        console.log("No EMail");
+
+        return;
+      }
+      console.log("FOrm");
+
+      socket.emit("room:join", { email, room });
+    },
+    [email, room, socket]
+  );
+
+  const handleJoinRoom = useCallback(
+    (data) => {
+      const { email, room } = data;
+      navigate(`/room/${room}`);
+    },
+    [navigate]
+  );
+
+  useEffect(() => {
+    socket.on("room:join", handleJoinRoom);
+    return () => {
+      socket.off("room:join", handleJoinRoom);
+    };
+  }, [handleJoinRoom]);
 
   const upcomingMeetings = [
     {
@@ -163,18 +210,18 @@ const MeetingsPage = () => {
                   </label>
                   <input
                     type="text"
-                    value={meetingId}
-                    onChange={(e) => setMeetingId(e.target.value)}
+                    value={room}
+                    onChange={(e) => setRoom(e.target.value)}
                     placeholder="e.g. x7y3-z8k9 or unimeet.com/meeting/x7y3-z8k9"
                     className="w-full p-4 text-base border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] focus:border-transparent transition-all"
                   />
                 </div>
 
                 <button
-                  onClick={handleJoinMeeting}
-                  disabled={!meetingId.trim()}
+                  onClick={handleSubmitForm}
+                  disabled={!room.trim()}
                   className={`w-full py-4 rounded-xl text-lg font-semibold flex items-center justify-center gap-2 transition-all duration-300 ${
-                    meetingId.trim()
+                    room.trim()
                       ? "bg-gradient-to-r from-[var(--primary-color)] to-blue-600 text-white hover:shadow-lg"
                       : "bg-gray-200 text-gray-500 cursor-not-allowed"
                   }`}

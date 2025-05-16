@@ -1,28 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
 import { useSocket } from "../context/SocketProvider";
-import ReactPlayer from "react-player";
 import peer from "../service/peer";
+import { Mic, MicOff, Video, VideoOff, Phone } from "lucide-react";
+
 const RoomPage = () => {
   const socket = useSocket();
   const [remoteSocketId, setRemoteSocketId] = useState(null);
   const [myStream, setMyStream] = useState();
   const [remoteStream, setRemoteStream] = useState();
-  // console.log("remoteStream", remoteStream);
-  // console.log("remoteSocketId", remoteSocketId);
-  // console.log("myStream", myStream);
-  // console.log("remoteStream", remoteStream);
-
-  // const [peer, setPeer] = useState(null);
-
-  console.log(peer);
-
-  // useEffect(() => {
-  //   const initPeer = async () => {
-  //     const initializedPeer = await peerService.init();
-  //     setPeer(initializedPeer);
-  //   };
-  //   initPeer();
-  // }, []);
+  const [isMicOn, setIsMicOn] = useState(true);
+  const [isVideoOn, setIsVideoOn] = useState(true);
 
   const handleUserJoined = useCallback(({ email, id }) => {
     console.log(`Email ${email} joined room`);
@@ -91,7 +78,6 @@ const RoomPage = () => {
     async ({ from, offer }) => {
       const ans = await peer.getAnswer(offer);
       console.log();
-
       socket.emit("peer:nego:done", { to: from, ans });
     },
     [socket]
@@ -101,12 +87,27 @@ const RoomPage = () => {
     await peer.setLocalDescription(ans);
   }, []);
 
-  useEffect(() => {
-    if (!peer) {
-      return;
+  const handleToggleMic = () => {
+    if (myStream) {
+      myStream.getAudioTracks().forEach((track) => {
+        track.enabled = !track.enabled;
+      });
+      setIsMicOn(!isMicOn);
     }
-    peer.peer.addEventListener("negotiationneeded", handleNegotiationNedded);
+  };
 
+  const handleToggleVideo = () => {
+    if (myStream) {
+      myStream.getVideoTracks().forEach((track) => {
+        track.enabled = !track.enabled;
+      });
+      setIsVideoOn(!isVideoOn);
+    }
+  };
+
+  useEffect(() => {
+    if (!peer) return;
+    peer.peer.addEventListener("negotiationneeded", handleNegotiationNedded);
     return () => {
       peer.peer.removeEventListener(
         "negotiationneeded",
@@ -122,9 +123,7 @@ const RoomPage = () => {
   }, []);
 
   useEffect(() => {
-    if (!peer) {
-      return;
-    }
+    if (!peer) return;
     peer.peer.addEventListener("track", handleTrackEvent);
     return () => {
       peer.peer.removeEventListener("track", handleTrackEvent);
@@ -153,40 +152,96 @@ const RoomPage = () => {
     handleNegoNeedIncoming,
     handleNegoFinal,
   ]);
-  return (
-    <div>
-      <h4>{remoteSocketId ? "Connected" : "No one in room"}</h4>
-      {remoteSocketId && <button onClick={handleCallUser}>Call</button>}
-      {myStream && (
-        <>
-          <h2>My Video</h2>
-          <video
-            autoPlay
-            muted
-            playsInline
-            ref={(video) => {
-              if (video) video.srcObject = myStream;
-            }}
-            width="300"
-            height="200"
-          />
-        </>
-      )}
 
-      {remoteStream && (
-        <>
-          <h2>Remote Video</h2>
-          <video
-            autoPlay
-            playsInline
-            ref={(video) => {
-              if (video) video.srcObject = remoteStream;
-            }}
-            width="300"
-            height="200"
-          />
-        </>
-      )}
+  return (
+    <div className="w-screen h-screen bg-[#F5F7FA] flex flex-col items-center justify-center p-4">
+      {/* Videos */}
+      <div className="flex gap-4 w-full max-w-5xl h-[70vh]">
+        {/* Local Video */}
+        <div className="flex-1 bg-white rounded-xl overflow-hidden shadow-md relative">
+          {myStream ? (
+            <video
+              autoPlay
+              muted
+              playsInline
+              className="w-full h-full object-cover"
+              ref={(video) => {
+                if (video) video.srcObject = myStream;
+              }}
+            />
+          ) : (
+            <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+              <p>Your camera will appear here</p>
+            </div>
+          )}
+          <div className="absolute bottom-2 left-2 text-white text-sm bg-[#0A2647] px-2 py-1 rounded">
+            You
+          </div>
+        </div>
+
+        {/* Remote Video */}
+        <div className="flex-1 bg-white rounded-xl overflow-hidden shadow-md relative">
+          {remoteStream && (
+            <video
+              autoPlay
+              playsInline
+              className="w-full h-full object-cover"
+              ref={(video) => {
+                if (video) video.srcObject = remoteStream;
+              }}
+            />
+          )}
+          {remoteSocketId ? (
+            <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+              <button
+                onClick={handleCallUser}
+                className="bg-[#0A2647] text-white px-4 py-2 rounded-lg"
+              >
+                Call User
+              </button>
+            </div>
+          ) : (
+            <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+              <p>Waiting for someone to join...</p>
+            </div>
+          )}
+          <div className="absolute bottom-2 left-2 text-white text-sm bg-[#0A2647] px-2 py-1 rounded">
+            {remoteSocketId ? "Remote User" : "No one in room"}
+          </div>
+        </div>
+      </div>
+
+      {/* Controls */}
+      <div className="mt-6 flex items-center gap-6">
+        {/* Mic */}
+        <button
+          onClick={handleToggleMic}
+          className="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-lg"
+        >
+          {isMicOn ? (
+            <Mic size={26} color="#0A2647" />
+          ) : (
+            <MicOff size={26} color="#0A2647" />
+          )}
+        </button>
+
+        {/* Video */}
+        <button
+          onClick={handleToggleVideo}
+          className="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-lg"
+        >
+          {isVideoOn ? (
+            <Video size={26} color="#0A2647" />
+          ) : (
+            <VideoOff size={26} color="#0A2647" />
+          )}
+        </button>
+
+        {/* End Call */}
+        <button className="w-14 h-14 bg-red-600 rounded-full flex items-center justify-center shadow-lg hover:bg-red-700 transition">
+          <Phone size={26} color="white" />
+        </button>
+      </div>
     </div>
   );
 };
