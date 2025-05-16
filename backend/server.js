@@ -19,7 +19,7 @@ const io = new Server(server, {
 });
 
 if (io) {
-  console.log("Sockets Initialized ")
+  console.log("Sockets Initialized")
 }
 
 const emailToSocketIdMap = new Map();
@@ -100,7 +100,7 @@ io.on("connection", socket => {
 
 // CORS + other Express setup
 app.use(cors({
-  origin: 'https://uni-meet-theta.vercel.app',
+  origin: 'http://localhost:5173',
   credentials: true,
 }));
 app.use(cookieParser());
