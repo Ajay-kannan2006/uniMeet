@@ -29,9 +29,12 @@ const MeetingsPage = () => {
   // const navigate = useNavigate();
   useEffect(() => {
     const getEmail = async () => {
-      const res = await axios.get("http://localhost:8080/api/auth/get-email", {
-        withCredentials: true,
-      });
+      const res = await axios.get(
+        "https://unimeet-8ox2.onrender.comapi/auth/get-email",
+        {
+          withCredentials: true,
+        }
+      );
       setEmail(res.data.email);
       console.log("your email", res.data.email);
     };

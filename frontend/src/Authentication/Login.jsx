@@ -29,7 +29,7 @@ const Login = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/auth/login",
+        "https://unimeet-8ox2.onrender.comapi/auth/login",
         formData,
         {
           withCredentials: true,
@@ -47,7 +47,7 @@ const Login = () => {
     const checkUser = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/auth/check-user",
+          "https://unimeet-8ox2.onrender.comapi/auth/check-user",
           {
             withCredentials: true,
           }
